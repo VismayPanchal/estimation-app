@@ -8,7 +8,7 @@ interface logindata {
 }
 const LoginPage = () => {
 
-    const { handleSubmit, control, formState } = useForm()
+    const { handleSubmit, control, formState } = useForm<logindata>()
     const errors = formState.errors
 
     const onSubmit = (data: logindata) => {
