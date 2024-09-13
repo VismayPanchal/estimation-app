@@ -1,18 +1,44 @@
 import styles from './LoginPage.module.css'
 import { Card, TextField, Grid, Button, Typography } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
+import { logindata } from '../Types'
+import { useState } from 'react'
+import { loginUser, registerUser } from '../Actions/AuthActions'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../store'
+import { useNavigate } from 'react-router-dom'
+import { toast, } from 'react-hot-toast'
 
-interface logindata {
-    email: string
-    password: string
-}
 const LoginPage = () => {
 
-    const { handleSubmit, control, formState } = useForm<logindata>()
+    const { handleSubmit, control, formState, getValues } = useForm<logindata>()
+    const [isregister, setIsRegister] = useState<boolean>(false)
     const errors = formState.errors
+    const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
 
     const onSubmit = (data: logindata) => {
-        console.log('data', data)
+
+        if (isregister) {
+            dispatch(registerUser(data)).then((result) => {
+                if (registerUser.fulfilled.match(result)) {
+                    navigate('/');
+                }
+            });
+        } else {
+            dispatch(loginUser(data)).then((result) => {
+                if (loginUser.rejected.match(result)) {
+                    console.log('rejected')
+                    alert(result.payload as string)
+                    toast.error("jkj")
+                }
+                if (loginUser.fulfilled.match(result)) {
+                    navigate('/')
+                }
+            }).catch((error) => {
+                console.log('login page err', error)
+            })
+        }
     }
 
     return <Card className={styles.card}>
@@ -66,10 +92,46 @@ const LoginPage = () => {
                     )}
                 />
             </Grid>
+            {isregister &&
+                <Grid item xs={8}>
+                    <Controller
+                        control={control}
+                        name='cpassword'
+                        rules={{
+                            required: 'This field is required.',
+                            validate: (value) => {
+                                if (value === getValues('password')) return true
+                                else return "Password doesn't match."
+                            }
+                        }}
+                        render={({ field: { onChange, value = '' } }) => (
+
+                            <TextField
+                                label="Password"
+                                value={value}
+                                onChange={(e) => {
+                                    onChange(e)
+                                }}
+                                className={styles.input}
+                                fullWidth
+                                size='small'
+                                error={Boolean(errors.cpassword)}
+                                helperText={Boolean(errors.cpassword) ? errors.cpassword?.message : ''}
+                            />
+                        )}
+                    />
+                </Grid>}
             <Grid item xs={6}>
                 <Button className={styles.button} onClick={handleSubmit(onSubmit)} size='large' type='button' sx={{ mr: 2 }}>
                     Login
                 </Button>
+            </Grid>
+            <Grid item xs={6}>
+                {!isregister ?
+                    <Typography>Don't have account? <Button onClick={() => setIsRegister(!isregister)}>Register</Button></Typography>
+                    :
+                    <Typography>Already have account? <Button onClick={() => setIsRegister(!isregister)}>Login</Button></Typography>
+                }
             </Grid>
         </Grid>
     </Card>
