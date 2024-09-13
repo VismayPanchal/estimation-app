@@ -3,8 +3,8 @@ import {
 	Routes,
 	Route
 } from "react-router-dom";
-import './App.css'
 import LoginPage from './Components/LoginPage';
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
 
@@ -12,8 +12,8 @@ function App() {
 		<Router>
 			<Routes>
 
-				<Route path='/'>
-					{/* dashboard */}
+				<Route element={<ProtectedRoute />}>
+					<Route path='/dashboard' />
 				</Route>
 				<Route path="/login" element={<LoginPage />} />
 			</Routes>

@@ -1,5 +1,5 @@
 import styles from './LoginPage.module.css'
-import { Card, TextField, Grid, Button, Typography } from '@mui/material'
+import { Card, TextField, Grid, Button, Typography, Box } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import { logindata } from '../Types'
 import { useState } from 'react'
@@ -22,7 +22,7 @@ const LoginPage = () => {
         if (isregister) {
             dispatch(registerUser(data)).then((result) => {
                 if (registerUser.fulfilled.match(result)) {
-                    navigate('/');
+                    navigate('/dashboard');
                 }
             });
         } else {
@@ -33,7 +33,7 @@ const LoginPage = () => {
                     toast.error("jkj")
                 }
                 if (loginUser.fulfilled.match(result)) {
-                    navigate('/')
+                    navigate('/dashboard')
                 }
             }).catch((error) => {
                 console.log('login page err', error)
@@ -41,69 +41,55 @@ const LoginPage = () => {
         }
     }
 
-    return <Card className={styles.card}>
+    return <Box style={{
+        width: '100vw',
+        height: '100vh',
+        background: '#4880FF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }}>
+        <Card sx={{
+            width: "40%",
+            margin: '0 auto',         // Centers horizontally
+            display: 'flex',
+            justifyContent: 'center', // Centers content horizontally
+            alignItems: 'center',     // Centers content vertically
+            height: "80%"
+        }}>
 
-        <Grid container spacing={4}>
-            <Grid item xs={12}>
-                <Typography><strong>Login to Account</strong></Typography>
-                <Typography>Please enter your email and password to continue.</Typography>
-            </Grid>
-            <Grid item xs={8}>
-                <Controller
-                    control={control}
-                    name='email'
-                    rules={{ required: 'This field is required.' }}
-                    render={({ field: { onChange, value = '' } }) => (
-
-                        <TextField
-                            label="Email"
-                            value={value}
-                            className={styles.input}
-                            onChange={(e) => {
-                                onChange(e)
-                            }}
-                            size='small'
-                            fullWidth
-                            error={Boolean(errors.email)}
-                            helperText={Boolean(errors.email) ? 'This field is required' : ''}
-                        />
-                    )}
-                />
-            </Grid>
-            <Grid item xs={8}>
-                <Controller
-                    control={control}
-                    name='password'
-                    rules={{ required: 'This field is required.' }}
-                    render={({ field: { onChange, value = '' } }) => (
-
-                        <TextField
-                            label="Password"
-                            value={value}
-                            onChange={(e) => {
-                                onChange(e)
-                            }}
-                            className={styles.input}
-                            fullWidth
-                            size='small'
-                            error={Boolean(errors.password)}
-                            helperText={Boolean(errors.password) ? 'This field is required' : ''}
-                        />
-                    )}
-                />
-            </Grid>
-            {isregister &&
+            <Grid container spacing={4}>
+                <Grid item xs={12}>
+                    <Typography className={styles.text}><strong>Login to Account</strong></Typography>
+                    <Typography className={styles.text}>Please enter your email and password to continue.</Typography>
+                </Grid>
                 <Grid item xs={8}>
                     <Controller
                         control={control}
-                        name='cpassword'
-                        rules={{
-                            required: 'This field is required.',
-                            validate: (value) => {
-                                if (value === getValues('password')) return true
-                                else return "Password doesn't match."
-                            }
-                        }}
+                        name='email'
+                        rules={{ required: 'This field is required.' }}
+                        render={({ field: { onChange, value = '' } }) => (
+
+                            <TextField
+                                label="Email"
+                                value={value}
+                                className={styles.input}
+                                onChange={(e) => {
+                                    onChange(e)
+                                }}
+                                size='small'
+                                fullWidth
+                                error={Boolean(errors.email)}
+                                helperText={Boolean(errors.email) ? 'This field is required' : ''}
+                            />
+                        )}
+                    />
+                </Grid>
+                <Grid item xs={8}>
+                    <Controller
+                        control={control}
+                        name='password'
+                        rules={{ required: 'This field is required.' }}
                         render={({ field: { onChange, value = '' } }) => (
 
                             <TextField
@@ -115,26 +101,56 @@ const LoginPage = () => {
                                 className={styles.input}
                                 fullWidth
                                 size='small'
-                                error={Boolean(errors.cpassword)}
-                                helperText={Boolean(errors.cpassword) ? errors.cpassword?.message : ''}
+                                error={Boolean(errors.password)}
+                                helperText={Boolean(errors.password) ? 'This field is required' : ''}
                             />
                         )}
                     />
-                </Grid>}
-            <Grid item xs={6}>
-                <Button className={styles.button} onClick={handleSubmit(onSubmit)} size='large' type='button' sx={{ mr: 2 }}>
-                    Login
-                </Button>
+                </Grid>
+                {isregister &&
+                    <Grid item xs={8}>
+                        <Controller
+                            control={control}
+                            name='cpassword'
+                            rules={{
+                                required: 'This field is required.',
+                                validate: (value) => {
+                                    if (value === getValues('password')) return true
+                                    else return "Password doesn't match."
+                                }
+                            }}
+                            render={({ field: { onChange, value = '' } }) => (
+
+                                <TextField
+                                    label="Password"
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                    }}
+                                    className={styles.input}
+                                    fullWidth
+                                    size='small'
+                                    error={Boolean(errors.cpassword)}
+                                    helperText={Boolean(errors.cpassword) ? errors.cpassword?.message : ''}
+                                />
+                            )}
+                        />
+                    </Grid>}
+                <Grid item xs={6}>
+                    <Button variant='contained' className={styles.button} onClick={handleSubmit(onSubmit)} size='large' type='button' sx={{ mr: 2 }}>
+                        {isregister ? 'Register' : 'Login'}
+                    </Button>
+                </Grid>
+                <Grid item xs={6}>
+                    {!isregister ?
+                        <Typography>Don't have account? <Button onClick={() => setIsRegister(!isregister)}>Register</Button></Typography>
+                        :
+                        <Typography>Already have account? <Button onClick={() => setIsRegister(!isregister)}>Login</Button></Typography>
+                    }
+                </Grid>
             </Grid>
-            <Grid item xs={6}>
-                {!isregister ?
-                    <Typography>Don't have account? <Button onClick={() => setIsRegister(!isregister)}>Register</Button></Typography>
-                    :
-                    <Typography>Already have account? <Button onClick={() => setIsRegister(!isregister)}>Login</Button></Typography>
-                }
-            </Grid>
-        </Grid>
-    </Card>
+        </Card>
+    </Box>
 }
 
 export default LoginPage

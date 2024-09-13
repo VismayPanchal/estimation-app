@@ -1,13 +1,17 @@
 .card {
     width: 630px;
-height: 735.36px;
-top: 197px;
+height: 100.36px;
+ top: 197px;
 left: 430px;
 gap: 0px;
-opacity: 0px;
+opacity: 0px;  
 
 }
 
+.text{
+    left:47px;
+    text-align: center;
+}
 .input {
     width: 516px;
 height: 96px;
@@ -17,11 +21,22 @@ opacity: 0px;
 
 
 }
-.button{
-    width: 418px;
-height: 56px;
+.button{ 
 left: 106px; 
 gap: 0px;
 opacity: 0px;
+
+}
+
+.divbox{
+width: 100%;
+top: 0px;
+left: 0px;
+gap: 0px;
+opacity: 0px;
+height: 100px;
+    background-image: url('../assets/main.png');
+    background-size: cover; /* Ensures the image covers the entire div */
+  background-position: center; /* Centers the image */
 
 }
