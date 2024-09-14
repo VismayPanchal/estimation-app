@@ -3,7 +3,7 @@ import { fetchAllProject } from "../../Actions/ProjectActions";
 import { useEffect, useState } from "react";
 import { AppDispatch } from "../../store";
 import { Link } from "react-router-dom";
-import { Table, DatePicker, Select, Button, Space } from 'antd';
+import { Table, DatePicker, Select, Space } from 'antd';
 import { columnOptions, projectStatus } from "../../Constants";
 import dayjs from "dayjs";
 import { Button as MUIButton } from "@mui/material";
@@ -29,12 +29,13 @@ const ProjectList = () => {
         let filteredData = projectList;
 
         if (dateFilter) {
-            console.log('Date Filter:', dateFilter.format('YYYY-MM-DD'));
-            filteredData = filteredData.filter(project => {
-                const projectDate = dayjs(project.date);
-                console.log('Project Date:', projectDate.format('YYYY-MM-DD'));
-                return projectDate.isSameOrAfter(dateFilter, 'day');
+
+            const formattedDateFilter = dateFilter.format('DD/MM/YYYY');
+            filteredData = filteredData.filter((project: ProjectData) => {
+                const projectDate = dayjs(project.duedate, 'DD/MM/YYYY'); // Parse with the format
+                return projectDate.isSame(dateFilter, 'day') || projectDate.isAfter(dateFilter, 'day');
             });
+            console.log('filter', formattedDateFilter)
         }
 
         if (statusFilter) {
@@ -100,9 +101,10 @@ const ProjectList = () => {
             </Link>
             {filteredProjects?.length > 0 && (
                 <Table
+                    key={'id'}
                     dataSource={filteredProjects}
                     columns={projectColumns}
-                    rowKey="customer"
+                    rowKey="id"
                     loading={loading}
                     pagination={{ pageSize: 10 }}
                 />

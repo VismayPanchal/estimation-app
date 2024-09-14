@@ -3,10 +3,12 @@ import {
 	Routes,
 	Route
 } from "react-router-dom";
-import LoginPage from './Components/LoginPage';
+import LoginPage from './Components/Login/LoginPage';
 import ProtectedRoute from "./Components/ProtectedRoute";
 import ProjectList from "./Components/Project/ProjectList";
 import CreateProject from "./Components/Project/CreateProject";
+import EstimationList from "./Components/Estimation/EstimationList";
+import CreateEstimation from "./Components/Estimation/CreateEstimation";
 
 function App() {
 
@@ -34,6 +36,22 @@ function App() {
 					element={
 						<ProtectedRoute>
 							<CreateProject />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/Estimations'
+					element={
+						<ProtectedRoute>
+							<EstimationList />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/Add-estimation'
+					element={
+						<ProtectedRoute>
+							<CreateEstimation />
 						</ProtectedRoute>
 					}
 				/>

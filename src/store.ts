@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import AuthSlice from './Reducers/AuthSlice'
 import ProjectSlice from './Reducers/ProjectSlice'
+import EstimationSlice from './Reducers/EstimationSlice'
 
 export const store = configureStore({
   reducer: {
     auth:AuthSlice,
-    project:ProjectSlice
+    project:ProjectSlice,
+    estimation:EstimationSlice
   },
 })
 

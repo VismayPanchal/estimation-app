@@ -21,6 +21,13 @@ export interface ProjectState {
     message:string|null;
 }
 
+export interface EstimationState{
+    loading: boolean;
+    estimationList: Record<string, any> | null;
+    error: SerializedError | string | null;
+    success: boolean;
+    message:string|null;
+}
 export interface ProjectData {
     customer:string;
     refNo: string;
