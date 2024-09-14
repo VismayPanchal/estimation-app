@@ -12,7 +12,11 @@ const initialState:AuthState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+      state.userInfo = null;
+      localStorage.removeItem('user');  // Remove from localStorage
+    },},
     extraReducers: (builder) => {
         builder.addCase(registerUser.pending, (state) => {
             state.loading = true

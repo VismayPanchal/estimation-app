@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { login_url } from '../Constants'
-import { logindata,UserResponse } from '../Types'
+import { base_url } from '../Constants'
+import { logindata, UserResponse } from '../Types'
 
 export const registerUser = createAsyncThunk<UserResponse | null, logindata>(
   'auth/register',
@@ -14,10 +14,11 @@ export const registerUser = createAsyncThunk<UserResponse | null, logindata>(
       };
 
       const response = await axios.post<UserResponse>(
-        `${login_url}`,
+        `${base_url}/users`,
         { email, password },
         config
       );
+      localStorage.setItem('user', JSON.stringify(response.data));  // Save to localStorage
 
       return response.data; // Return the response data
 
@@ -37,16 +38,18 @@ export const loginUser = createAsyncThunk<UserResponse, logindata>(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.get<UserResponse[]>(login_url, {
-        params: { email, password } 
+      const response = await axios.get<UserResponse[]>(base_url + '/users', {
+        params: { email, password }
       });
 
       const user = response.data.find(user => user.email === email && user.password === password);
       if (!user) {
         return rejectWithValue('Invalid email or password');
       }
+      localStorage.setItem('user', JSON.stringify(response.data));  // Save to localStorage
 
-      return user; 
+
+      return user;
 
     } catch (err) {
       const error = err as AxiosError;

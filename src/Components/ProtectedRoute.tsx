@@ -1,23 +1,21 @@
+import { ReactNode } from 'react';
 import { useSelector } from 'react-redux'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
-const ProtectedRoute = () => {
+interface ProtectedRouteProps {
+    children: ReactNode;
+}
+
+const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const userInfo = useSelector((state: any) => state.auth.userInfo)
-    console.log('userInfo', userInfo)
+    const storedUser = JSON.parse(localStorage.getItem('user') ?? '{}');
 
-    // show unauthorized screen if no user is found in redux store
-    if (!userInfo) {
-        return (
-            <div className='unauthorized'>
-                <h1>Unauthorized :(</h1>
-                <span>
-                    <NavLink to='/login'>Login</NavLink> to gain access
-                </span>
-            </div>
-        )
+
+    if (!userInfo && !storedUser) {
+        return <Navigate to="/login" replace />;
     }
 
-    // returns child route elements
-    return <Outlet />
-}
-export default ProtectedRoute
+    return children;
+};
+
+export default ProtectedRoute;
