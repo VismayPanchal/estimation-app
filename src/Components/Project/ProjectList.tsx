@@ -8,6 +8,7 @@ import { columnOptions, projectStatus } from "../../Constants";
 import dayjs from "dayjs";
 import { Button as MUIButton } from "@mui/material";
 import { ProjectData } from "../../Types";
+import MainLayout from "../Layout/MainLayout";
 const { Option } = Select;
 
 const ProjectList = () => {
@@ -64,7 +65,7 @@ const ProjectList = () => {
     ];
 
 
-    return (
+    return (<MainLayout>
         <div style={{ height: 400, }}>
 
             <Space>
@@ -111,6 +112,7 @@ const ProjectList = () => {
 
             )}
         </div>
+    </MainLayout>
     );
 };
 

@@ -11,8 +11,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const storedUser = JSON.parse(localStorage.getItem('user') ?? '{}');
 
 
-    if (!userInfo && !storedUser) {
+
+    if (userInfo == null && !storedUser[0]?.email) {
         return <Navigate to="/login" replace />;
+    } else {
+        console.log('user', userInfo, storedUser)
     }
 
     return children;

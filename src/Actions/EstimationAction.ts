@@ -15,7 +15,7 @@ export const createEstimation = createAsyncThunk<UserResponse | null, ProjectDat
 
       const response = await axios.post<UserResponse>(
         `${base_url}/estimations`,
-        projectData,
+        JSON.stringify(projectData),
         config
       );
 
