@@ -1,18 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProject } from "../../Actions/ProjectActions";
+import { fetchAllProject, fetchProjectById } from "../../Actions/ProjectActions";
 import { useEffect, useState } from "react";
 import { AppDispatch } from "../../store";
-import { Link } from "react-router-dom";
-import { Table, DatePicker, Select, Space } from 'antd';
+import { Link, useNavigate } from "react-router-dom";
+import { Table, DatePicker, Select, Space, Button } from 'antd';
 import { columnOptions, projectStatus } from "../../Constants";
 import dayjs from "dayjs";
 import { Button as MUIButton } from "@mui/material";
 import { ProjectData } from "../../Types";
 import MainLayout from "../Layout/MainLayout";
+import { EditOutlined } from '@ant-design/icons';
+
 const { Option } = Select;
 
 const ProjectList = () => {
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+
     const { projectList, loading } = useSelector((state: any) => state.project);
 
     const [filteredProjects, setFilteredProjects] = useState(projectList);
@@ -21,6 +25,11 @@ const ProjectList = () => {
     const [hiddenColumns, sethiddenColumns] = useState<string[]>([
 
     ]);
+
+    const handleEditClick = (projectId: string) => {
+        dispatch(fetchProjectById(projectId)); // Dispatch action to get project details
+        navigate(`/Add-project/${projectId}`); // Navigate to the create project page
+    };
 
     useEffect(() => {
         dispatch(fetchAllProject());
@@ -60,6 +69,19 @@ const ProjectList = () => {
         { dataIndex: 'staff', key: 'staff', title: "Staff", width: 200, hidden: hiddenColumns.includes('staff') },
         { dataIndex: 'status', key: 'status', title: "Status", width: 200, hidden: hiddenColumns.includes('status') },
         { dataIndex: 'email', key: 'email', title: "Email", width: 200, hidden: hiddenColumns.includes('email') },
+        {
+            title: 'Edit',
+            key: 'edit',
+            render: (text: any, record: any) => (
+                <Button
+                    icon={<EditOutlined />}
+                    onClick={() => handleEditClick(record.id)}
+                >
+                    Edit
+                </Button>
+            ),
+        },
+
 
         // Add more columns as per your projectList structure
     ];

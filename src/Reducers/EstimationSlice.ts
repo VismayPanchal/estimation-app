@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createEstimation, fetchAllEstimations } from '../Actions/EstimationAction'
+import { createEstimation, fetchAllEstimations, fetchEstimationByid, updateEstimation } from '../Actions/EstimationAction'
 import { EstimationState } from '../Types'
 
 const initialState: EstimationState = {
@@ -7,6 +7,7 @@ const initialState: EstimationState = {
     estimationList: null,
     message: null,
     error: null,
+    estimation:null,
     success: false,
 }
 
@@ -22,7 +23,7 @@ const estimationSlice = createSlice({
             .addCase(createEstimation.fulfilled, (state) => {
                 state.loading = false
                 state.success = true
-                state.message = "Project created successfully."
+                state.message = "Estimation created successfully."
             })
             .addCase(createEstimation.rejected, (state, action) => {
                 state.loading = false
@@ -36,6 +37,29 @@ const estimationSlice = createSlice({
                 state.estimationList = action.payload;
             })
             .addCase(fetchAllEstimations.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message ?? null;
+            })
+            .addCase(fetchEstimationByid.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchEstimationByid.fulfilled, (state, action) => {
+                state.loading = false;
+                console.log('action', action)
+                state.estimation = action.payload;
+            })
+            .addCase(fetchEstimationByid.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message ?? null;
+            })
+            .addCase(updateEstimation.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updateEstimation.fulfilled, (state, action) => {
+                state.loading = false;
+                state.estimationList = action.payload;
+            })
+            .addCase(updateEstimation.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message ?? null;
             });

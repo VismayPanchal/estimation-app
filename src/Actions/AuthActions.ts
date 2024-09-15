@@ -5,7 +5,7 @@ import { logindata, UserResponse } from '../Types'
 
 export const registerUser = createAsyncThunk<UserResponse | null, logindata>(
   'auth/register',
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password, user }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -15,7 +15,7 @@ export const registerUser = createAsyncThunk<UserResponse | null, logindata>(
 
       const response = await axios.post<UserResponse>(
         `${base_url}/users`,
-        { email, password },
+        { email, password, user },
         config
       );
       localStorage.setItem('user', JSON.stringify(response.data));  // Save to localStorage

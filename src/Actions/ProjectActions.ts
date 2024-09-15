@@ -37,3 +37,26 @@ export const fetchAllProject =  createAsyncThunk('project/fetchAll', async () =>
   const response = await axios.get(`${base_url}/projects`);
   return response.data;
 });
+
+export const fetchProjectById = createAsyncThunk(
+  'project/fetchById',
+  async (projectId: string, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${base_url}/projects/${projectId}`);
+      return response.data;
+    } catch (err) {
+      const error = err as AxiosError;
+
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const updateProject = createAsyncThunk(
+  'project/updateProject',
+  async (projectData: ProjectData) => {
+    const response = await axios.put(`${base_url}/projects/${projectData.id}`, projectData);
+    return response.data;
+  }
+);
+

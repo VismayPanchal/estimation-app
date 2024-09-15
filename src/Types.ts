@@ -4,6 +4,7 @@ export interface logindata {
     email: string
     password: string
     cpassword?:string
+    user?:string
 }
 
 export interface AuthState {
@@ -19,6 +20,7 @@ export interface ProjectState {
     error: SerializedError | string | null;
     success: boolean;
     message:string|null;
+    project?:ProjectData | null
 }
 
 export interface EstimationState{
@@ -27,6 +29,7 @@ export interface EstimationState{
     error: SerializedError | string | null;
     success: boolean;
     message:string|null;
+    estimation:any|null;
 }
 export interface ProjectData {
     customer:string;
@@ -41,6 +44,7 @@ export interface ProjectData {
     staff?:string;
     status:string;
     email:string
+    id?:string
 
 }
 

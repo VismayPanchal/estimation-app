@@ -37,3 +37,26 @@ export const fetchAllEstimations =  createAsyncThunk('estimation/fetchAll', asyn
   const response = await axios.get(`${base_url}/estimations`);
   return response.data;
 });
+
+export const fetchEstimationByid = createAsyncThunk(
+  'estimation/fetchById',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${base_url}/estimations/${id}`);
+      return response.data;
+    } catch (err) {
+      const error = err as AxiosError;
+
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const updateEstimation = createAsyncThunk(
+  'estimation/updateEstimation',
+  async (projectData: ProjectData) => {
+    const response = await axios.put(`${base_url}/estimations/${projectData.id}`, projectData);
+    return response.data;
+  }
+);
+

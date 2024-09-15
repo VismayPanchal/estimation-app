@@ -58,9 +58,9 @@ const LoginPage = () => {
             height: "80%"
         }}>
 
-            <Grid container spacing={4}>
+            <Grid container spacing={isregister ? 0 : 1}>
                 <Grid item xs={12}>
-                    <Typography className={styles.text}><strong>Login to Account</strong></Typography>
+                    <Typography className={styles.text}><strong>{isregister ? 'Create Account' : 'Login to Account'}</strong></Typography>
                     <Typography className={styles.text}>Please enter your email and password to continue.</Typography>
                 </Grid>
                 <Grid item xs={8}>
@@ -85,6 +85,31 @@ const LoginPage = () => {
                         )}
                     />
                 </Grid>
+                {isregister &&
+                    <Grid item xs={8}>
+                        <Controller
+                            control={control}
+                            name='user'
+                            rules={{
+                                required: 'This field is required.',
+                            }}
+                            render={({ field: { onChange, value = '' } }) => (
+
+                                <TextField
+                                    label="Username"
+                                    value={value}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                    }}
+                                    className={styles.input}
+                                    fullWidth
+                                    size='small'
+                                    error={Boolean(errors.user)}
+                                    helperText={Boolean(errors.user) ? errors.user?.message : ''}
+                                />
+                            )}
+                        />
+                    </Grid>}
                 <Grid item xs={8}>
                     <Controller
                         control={control}
@@ -95,6 +120,7 @@ const LoginPage = () => {
                             <TextField
                                 label="Password"
                                 value={value}
+                                type='password'
                                 onChange={(e) => {
                                     onChange(e)
                                 }}
@@ -112,6 +138,7 @@ const LoginPage = () => {
                         <Controller
                             control={control}
                             name='cpassword'
+
                             rules={{
                                 required: 'This field is required.',
                                 validate: (value) => {
@@ -122,7 +149,9 @@ const LoginPage = () => {
                             render={({ field: { onChange, value = '' } }) => (
 
                                 <TextField
-                                    label="Password"
+                                    type='password'
+
+                                    label="Comfirm Password"
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e)

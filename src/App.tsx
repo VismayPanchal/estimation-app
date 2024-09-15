@@ -9,6 +9,7 @@ import ProjectList from "./Components/Project/ProjectList";
 import CreateProject from "./Components/Project/CreateProject";
 import EstimationList from "./Components/Estimation/EstimationList";
 import CreateEstimation from "./Components/Estimation/CreateEstimation";
+import Dashboard from "./Components/Dashboard";
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
 					path="/dashboard"
 					element={
 						<ProtectedRoute>
-							<></>
+							<Dashboard />
 						</ProtectedRoute>
 					}
 				/>
@@ -40,6 +41,14 @@ function App() {
 					}
 				/>
 				<Route
+					path='/Add-project/:projectId'
+					element={
+						<ProtectedRoute>
+							<CreateProject />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
 					path='/Estimations'
 					element={
 						<ProtectedRoute>
@@ -49,6 +58,14 @@ function App() {
 				/>
 				<Route
 					path='/Add-estimation'
+					element={
+						<ProtectedRoute>
+							<CreateEstimation />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/Add-estimation/:id'
 					element={
 						<ProtectedRoute>
 							<CreateEstimation />

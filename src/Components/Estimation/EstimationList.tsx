@@ -1,21 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllEstimations } from "../../Actions/EstimationAction";
+import { fetchAllEstimations, fetchEstimationByid } from "../../Actions/EstimationAction";
 import { useEffect } from "react";
 import { AppDispatch } from "../../store";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Table } from 'antd';
 import { Button as MUIButton } from "@mui/material";
 import MainLayout from "../Layout/MainLayout";
+import { Button } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 
 const EstimationList = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { estimationList, loading } = useSelector((state: any) => state.estimation);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchAllEstimations());
     }, [dispatch]);
 
-    console.log('estimaion', estimationList)
+    const handleEditClick = (id: string) => {
+        dispatch(fetchEstimationByid(id)); // Dispatch action to get project details
+        navigate(`/Add-estimation/${id}`); // Navigate to the create project page
+    };
 
     const projectColumns = [
         { dataIndex: 'group', key: 'group', title: "Estimation for", width: 200, },
@@ -23,7 +29,18 @@ const EstimationList = () => {
         { dataIndex: 'createdDate', key: 'createdDate', title: "Created Date", width: 200, },
         { dataIndex: 'updatedDate', key: 'updatedDate', title: "Last Modified", width: 200, },
 
-        { dataIndex: 'action', key: 'email', title: "Action", width: 200, },
+        {
+            title: 'Edit',
+            key: 'edit',
+            render: (text: any, record: any) => (
+                <Button
+                    icon={<EditOutlined />}
+                    onClick={() => handleEditClick(record.id)}
+                >
+                    Edit
+                </Button>
+            ),
+        },
 
         // Add more columns as per your projectList structure
     ];
