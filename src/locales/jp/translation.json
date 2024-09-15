@@ -37,5 +37,9 @@
     "dashboard": "ダッシュボード",
     "projects": "プロジェクト",
     "estimations": "見積もり",
-    "logout": "ログアウト"
+    "logout": "ログアウト",
+    "estimation_for": "見積もり対象",
+    "project": "プロジェクト",
+    "created_date": "作成日",
+    "last_modified": "最終更新日"
 }

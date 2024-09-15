@@ -17,13 +17,15 @@ interface SidebarProps {
 const Sidebar = ({ children }: SidebarProps) => {
     const navigate = useNavigate();  // React Router navigation
     const dispatch = useDispatch()
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
 
     const handleLogout = () => {
         dispatch(logout())
         navigate('/login')
     };
-
+    const handleChange = (event: any) => {
+        i18n.changeLanguage(event?.target.value);
+    };
     // Navigation menu items
     const menuItems = [
         { text: t('dashboard'), icon: <DashboardIcon />, path: '/dashboard' },
@@ -62,12 +64,25 @@ const Sidebar = ({ children }: SidebarProps) => {
                     ))}
                 </List>
                 {/* Logout Item */}
-                <List sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
+                <List sx={{ position: 'absolute', bottom: 50, width: '100%' }}>
                     <ListItem button onClick={handleLogout}>
                         <ListItemIcon>
                             <ExitToAppIcon />
                         </ListItemIcon>
                         <ListItemText primary={t("logout")} />
+                    </ListItem>
+                </List>
+                <List sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
+
+                    <ListItem >
+                        <select
+                            defaultValue={i18n.language}
+                            // style={{ width: 120 }}
+                            onChange={handleChange}
+                        >
+                            <option value="en">English</option>
+                            <option value="jp">Japanese</option>
+                        </select>
                     </ListItem>
                 </List>
             </Drawer>

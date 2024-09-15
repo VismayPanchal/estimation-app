@@ -37,5 +37,9 @@
     "dashboard": "dashboard",
     "projects": "Projects",
     "estimations": "Estimations",
-    "logout": "Logout"
+    "logout": "Logout",
+    "estimation_for": "Estimation For",
+    "project": "Project",
+    "created_date": "Created Date",
+    "last_modified": "Last Modified"
 }

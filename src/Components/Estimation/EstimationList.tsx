@@ -8,9 +8,11 @@ import { Button as MUIButton } from "@mui/material";
 import MainLayout from "../Layout/MainLayout";
 import { Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
+import { useTranslation } from "react-i18next";
 
 const EstimationList = () => {
     const dispatch = useDispatch<AppDispatch>();
+    const { t } = useTranslation()
     const { estimationList, loading } = useSelector((state: any) => state.estimation);
     const navigate = useNavigate();
 
@@ -24,10 +26,10 @@ const EstimationList = () => {
     };
 
     const projectColumns = [
-        { dataIndex: 'group', key: 'group', title: "Estimation for", width: 200, },
-        { dataIndex: 'projectName', key: 'projectName', title: "Project", width: 300, },
-        { dataIndex: 'createdDate', key: 'createdDate', title: "Created Date", width: 200, },
-        { dataIndex: 'updatedDate', key: 'updatedDate', title: "Last Modified", width: 200, },
+        { dataIndex: 'group', key: 'group', title: t("estimation_for"), width: 200, },
+        { dataIndex: 'projectName', key: 'projectName', title: t("project"), width: 300, },
+        { dataIndex: 'createdDate', key: 'createdDate', title: t("created_date"), width: 200, },
+        { dataIndex: 'updatedDate', key: 'updatedDate', title: t("last_modified"), width: 200, },
 
         {
             title: 'Edit',

@@ -58,19 +58,19 @@ const ProjectList = () => {
     }, [dateFilter, statusFilter, projectList]);
 
     const projectColumns = [
-        { dataIndex: 'customer', key: 'customer', title: 'Customer', width: 100, hidden: hiddenColumns.includes('customer') },
-        { dataIndex: 'refNo', key: 'refNo', title: 'Refence No.', width: 100, hidden: hiddenColumns.includes('refNo') },
-        { dataIndex: 'projectName', key: 'projectName', title: "Project Name", width: 300, hidden: hiddenColumns.includes('projectName') },
-        { dataIndex: 'projectNumber', key: 'projectNumber', title: "Project Number", width: 200, hidden: hiddenColumns.includes('projectNumber') },
-        { dataIndex: 'areaLocation', key: 'areaLocation', title: "Area Location", width: 200, hidden: hiddenColumns.includes('areaLocation') },
-        { dataIndex: 'address', key: 'address', title: "Address", width: 200, hidden: hiddenColumns.includes('address') },
-        { dataIndex: 'duedate', key: 'duedate', title: "Due Date", width: 200, hidden: hiddenColumns.includes('duedate') },
+        { dataIndex: 'customer', key: 'customer', title: t('customer'), width: 100, hidden: hiddenColumns.includes('customer') },
+        { dataIndex: 'refNo', key: 'refNo', title: t('reference'), width: 100, hidden: hiddenColumns.includes('refNo') },
+        { dataIndex: 'projectName', key: 'projectName', title: t("project_name"), width: 300, hidden: hiddenColumns.includes('projectName') },
+        { dataIndex: 'projectNumber', key: 'projectNumber', title: t("project_number"), width: 200, hidden: hiddenColumns.includes('projectNumber') },
+        { dataIndex: 'areaLocation', key: 'areaLocation', title: t("area"), width: 200, hidden: hiddenColumns.includes('areaLocation') },
+        { dataIndex: 'address', key: 'address', title: t("address"), width: 200, hidden: hiddenColumns.includes('address') },
+        { dataIndex: 'duedate', key: 'duedate', title: t("due_date"), width: 200, hidden: hiddenColumns.includes('duedate') },
 
-        { dataIndex: 'contact', key: 'contact', title: "Contact", width: 200, hidden: hiddenColumns.includes('contact') },
-        { dataIndex: 'manager', key: 'manager', title: "Manager", width: 200, hidden: hiddenColumns.includes('manager') },
-        { dataIndex: 'staff', key: 'staff', title: "Staff", width: 200, hidden: hiddenColumns.includes('staff') },
-        { dataIndex: 'status', key: 'status', title: "Status", width: 200, hidden: hiddenColumns.includes('status') },
-        { dataIndex: 'email', key: 'email', title: "Email", width: 200, hidden: hiddenColumns.includes('email') },
+        { dataIndex: 'contact', key: 'contact', title: t("contact"), width: 200, hidden: hiddenColumns.includes('contact') },
+        { dataIndex: 'manager', key: 'manager', title: t("manager"), width: 200, hidden: hiddenColumns.includes('manager') },
+        { dataIndex: 'staff', key: 'staff', title: t("staff"), width: 200, hidden: hiddenColumns.includes('staff') },
+        { dataIndex: 'status', key: 'status', title: t("status"), width: 200, hidden: hiddenColumns.includes('status') },
+        { dataIndex: 'email', key: 'email', title: t("email"), width: 200, hidden: hiddenColumns.includes('email') },
         {
             title: 'Edit',
             key: 'edit',
@@ -122,7 +122,7 @@ const ProjectList = () => {
             </Select>
             <Link to={'/Add-project'} >
 
-                <MUIButton variant="contained" sx={{ float: "right" }}>{t('add_project')}</MUIButton>
+                <MUIButton variant="contained" style={{ marginLeft: "50px" }} >{t('add_project')}</MUIButton>
             </Link>
             {filteredProjects?.length > 0 && (
                 <Table
