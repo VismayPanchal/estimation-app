@@ -31,8 +31,6 @@ Instructions for setting up and installing the project locally.
 
 ## Usage
 
-Explain how to use your project. Include code snippets or examples if applicable.
-
 ### Start JSON Server
 
 1. **Navigate to json-server directory**
@@ -50,3 +48,26 @@ Explain how to use your project. Include code snippets or examples if applicable
     ```bash
     npx json-server db.json --port 8000
     ```
+
+
+## Folder Structure
+
+Explain the layout of your project's files and directories. Here's an example:
+
+```bash
+├── public/              # Public assets (HTML, images, etc.)
+│   ├── index.html       # Main HTML file
+│   └── ...
+├── src/                 # Source code files
+│   ├── components/      # Reusable components
+│   ├── Reducers/        # contains reducers for the app
+│   ├── Actions/         # rtk actions
+│   ├── App.js           # Root component
+│   ├── index.js         # Entry point for React
+    ├── locale/              # Translation files for internationalization
+    │   ├── en.json          # English translations
+    │   ├── jp.json          # Japanese translations
+├── README.md            # This README file
+├── package.json         # Node package manager configuration
+└── ...
+```
