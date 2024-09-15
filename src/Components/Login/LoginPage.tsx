@@ -8,9 +8,11 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../store'
 import { useNavigate } from 'react-router-dom'
 import { toast, } from 'react-hot-toast'
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
 
+    const { t } = useTranslation();
     const { handleSubmit, control, formState, getValues } = useForm<logindata>()
     const [isregister, setIsRegister] = useState<boolean>(false)
     const errors = formState.errors
@@ -60,8 +62,8 @@ const LoginPage = () => {
 
             <Grid container spacing={isregister ? 0 : 1}>
                 <Grid item xs={12}>
-                    <Typography className={styles.text}><strong>{isregister ? 'Create Account' : 'Login to Account'}</strong></Typography>
-                    <Typography className={styles.text}>Please enter your email and password to continue.</Typography>
+                    <Typography className={styles.text}><strong>{isregister ? t('create_account') : t('login_to_account')}</strong></Typography>
+                    <Typography className={styles.text}>{t('please_enter_email_and_passwor')}</Typography>
                 </Grid>
                 <Grid item xs={8}>
                     <Controller
@@ -71,7 +73,7 @@ const LoginPage = () => {
                         render={({ field: { onChange, value = '' } }) => (
 
                             <TextField
-                                label="Email"
+                                label={t('email')}
                                 value={value}
                                 className={styles.input}
                                 onChange={(e) => {
@@ -96,7 +98,7 @@ const LoginPage = () => {
                             render={({ field: { onChange, value = '' } }) => (
 
                                 <TextField
-                                    label="Username"
+                                    label={t('user')}
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e)
@@ -118,7 +120,7 @@ const LoginPage = () => {
                         render={({ field: { onChange, value = '' } }) => (
 
                             <TextField
-                                label="Password"
+                                label={t('password')}
                                 value={value}
                                 type='password'
                                 onChange={(e) => {
@@ -151,7 +153,7 @@ const LoginPage = () => {
                                 <TextField
                                     type='password'
 
-                                    label="Comfirm Password"
+                                    label={t('cpassword')}
                                     value={value}
                                     onChange={(e) => {
                                         onChange(e)
@@ -172,9 +174,9 @@ const LoginPage = () => {
                 </Grid>
                 <Grid item xs={6}>
                     {!isregister ?
-                        <Typography>Don't have account? <Button onClick={() => setIsRegister(!isregister)}>Register</Button></Typography>
+                        <Typography>{t('dont_have_account')} <Button onClick={() => setIsRegister(!isregister)}>{t('register')}</Button></Typography>
                         :
-                        <Typography>Already have account? <Button onClick={() => setIsRegister(!isregister)}>Login</Button></Typography>
+                        <Typography>{t('already_have_account')} <Button onClick={() => setIsRegister(!isregister)}>{t('login')}</Button></Typography>
                     }
                 </Grid>
             </Grid>

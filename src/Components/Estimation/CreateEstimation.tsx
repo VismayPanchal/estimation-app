@@ -11,11 +11,13 @@ import dayjs from 'dayjs';
 import MainLayout from '../Layout/MainLayout';
 import axios from 'axios'
 import { base_url } from '../../Constants';
+import { useTranslation } from 'react-i18next';
 
 
 const CreateEstimation = () => {
 
     const { id } = useParams<{ id: string }>();
+    const { t } = useTranslation()
     const { estimation, loading } = useSelector((state: RootState) => state.estimation);
 
     const navigate = useNavigate()
@@ -194,7 +196,7 @@ const CreateEstimation = () => {
                                                     <TextField
                                                         fullWidth
                                                         value={item.group}
-                                                        label='Group'
+                                                        label={t('group')}
                                                         onChange={(event) => {
                                                             const copyTable = [...groups]
                                                             copyTable[index] = {
@@ -217,7 +219,7 @@ const CreateEstimation = () => {
                                                     <TextField
                                                         fullWidth
                                                         value={subitem.name}
-                                                        label='Name'
+                                                        label={t('name')}
                                                         onChange={(event) => {
                                                             const copyTable = [...groups]
                                                             copyTable[index].items[subindex] = {
@@ -234,7 +236,7 @@ const CreateEstimation = () => {
                                                     <TextField
                                                         fullWidth
                                                         value={subitem.description}
-                                                        label='Description'
+                                                        label={t('description')}
                                                         onChange={(event) => {
                                                             const copyTable = [...groups]
                                                             copyTable[index].items[subindex] = {
@@ -250,7 +252,7 @@ const CreateEstimation = () => {
                                                     <TextField
                                                         fullWidth
                                                         value={subitem.unit}
-                                                        label='Unit'
+                                                        label={t('unit')}
                                                         onChange={(event) => {
                                                             const copyTable = [...groups]
                                                             copyTable[index].items[subindex] = {
@@ -267,7 +269,7 @@ const CreateEstimation = () => {
                                                         fullWidth
                                                         type='number'
                                                         value={subitem.quantity}
-                                                        label='Quantity'
+                                                        label={t('quantity')}
                                                         onChange={(event) => {
                                                             const copyTable = [...groups]
                                                             copyTable[index].items[subindex] = {
@@ -284,7 +286,7 @@ const CreateEstimation = () => {
                                                         fullWidth
                                                         value={subitem.price}
                                                         type='number'
-                                                        label='Price'
+                                                        label={t('price')}
                                                         onChange={(event) => {
                                                             const copyTable = [...groups]
                                                             copyTable[index].items[subindex] = {
@@ -302,7 +304,7 @@ const CreateEstimation = () => {
                                                         fullWidth
                                                         value={subitem.margin}
                                                         type='number'
-                                                        label='Margin'
+                                                        label={t('margin')}
                                                         onChange={(event) => {
                                                             const copyTable = [...groups]
                                                             copyTable[index].items[subindex] = {
@@ -329,20 +331,20 @@ const CreateEstimation = () => {
 
                         <Card sx={{ float: "right", width: "200px", height: "100px", marginRight: "100px", marginTop: "50px" }}>
                             <TableRow>
-                                <TableCell>SubTotal</TableCell>
+                                <TableCell>{t('sub_total')}</TableCell>
                                 <TableCell> $ {subTotal}</TableCell>
                             </TableRow><TableRow>
-                                <TableCell>Toal margin</TableCell>
+                                <TableCell>{t('total_margin')}</TableCell>
                                 <TableCell> $ {margin}</TableCell>
                             </TableRow>
                         </Card>
                     </Grid>
                     <Grid item sx={{ float: "right" }}>
 
-                        <Button sx={{ float: "right" }} onClick={() => onSubmit()} variant="contained">Submit</Button>
+                        <Button sx={{ float: "right" }} onClick={() => onSubmit()} variant="contained">{t('Submit')}</Button>
 
                         <Link to={'/Estimations'} >
-                            <Button sx={{ float: "right" }} variant='outlined'>Cancel</Button>
+                            <Button sx={{ float: "right" }} variant='outlined'>{t('Cancel')}</Button>
                         </Link>
                     </Grid>
                 </Grid>}

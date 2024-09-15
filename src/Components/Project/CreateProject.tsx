@@ -12,10 +12,12 @@ import { createProject, updateProject } from "../../Actions/ProjectActions";
 import { projectStatus } from "../../Constants";
 import MainLayout from "../Layout/MainLayout";
 import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 const CreateProject = () => {
 
-    const { handleSubmit, control, formState, reset, setValue, register } = useForm<ProjectData>()
+    const { t } = useTranslation()
+    const { handleSubmit, control, formState, reset, setValue } = useForm<ProjectData>()
     const errors = formState.errors
     const { projectId } = useParams<{ projectId: string }>(); // Get projectId from URL
     const navigate = useNavigate()
@@ -79,9 +81,8 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Customer"
+                                        label={t("Customer")}
                                         value={value}
-                                        {...register('customer')}
                                         onChange={(e) => {
                                             onChange(e)
                                         }}
@@ -101,7 +102,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Reference no"
+                                        label={t("reference")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -122,7 +123,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Project Name"
+                                        label={t("project_name")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -143,7 +144,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Project Number"
+                                        label={t("project_number")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -164,7 +165,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Area Location"
+                                        label={t("area")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -185,7 +186,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Address"
+                                        label={t("address")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -208,7 +209,7 @@ const CreateProject = () => {
                                         <DatePicker
                                             value={dayjs(value)}
 
-                                            label='Due Date'
+                                            label={t('due_date')}
                                             onChange={(date: any) => {
                                                 onChange(dayjs(date).format('DD/MM/YYYY'))
 
@@ -227,7 +228,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Contact"
+                                        label={t("contact")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -248,7 +249,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Manager"
+                                        label={t("manager")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -269,7 +270,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Staff"
+                                        label={t("staff")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -308,7 +309,7 @@ const CreateProject = () => {
                                         renderInput={params => (
                                             <TextField
                                                 {...params}
-                                                label="Status"
+                                                label={t("status")}
 
                                                 size='small'
                                                 fullWidth
@@ -329,7 +330,7 @@ const CreateProject = () => {
                                 render={({ field: { onChange, value = '' } }) => (
 
                                     <TextField
-                                        label="Email"
+                                        label={t("email")}
                                         value={value}
                                         onChange={(e) => {
                                             onChange(e)
@@ -343,11 +344,11 @@ const CreateProject = () => {
                             />
                         </Grid>
                         <Grid item xs={4} sm={4}>
-                            <Button onClick={handleSubmit(onSubmit)} variant="contained">{projectId ? 'Update Project' : ' Add Project'}</Button>
+                            <Button onClick={handleSubmit(onSubmit)} variant="contained">{projectId ? t('update_project') : t('add_project')}</Button>
                         </Grid>
                         <Grid item xs={4} sm={4}>
                             <Link to={'/Projects'} >
-                                <Button onClick={() => reset()}>Cancel</Button>
+                                <Button onClick={() => reset()}>{t('Cancel')}</Button>
                             </Link>
                         </Grid>
                     </Grid>

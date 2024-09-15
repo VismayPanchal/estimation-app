@@ -10,12 +10,14 @@ import { Button as MUIButton } from "@mui/material";
 import { ProjectData } from "../../Types";
 import MainLayout from "../Layout/MainLayout";
 import { EditOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
 const ProjectList = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
+    const { t } = useTranslation()
 
     const { projectList, loading } = useSelector((state: any) => state.project);
 
@@ -120,7 +122,7 @@ const ProjectList = () => {
             </Select>
             <Link to={'/Add-project'} >
 
-                <MUIButton variant="contained" sx={{ float: "right" }}> Add Project</MUIButton>
+                <MUIButton variant="contained" sx={{ float: "right" }}>{t('add_project')}</MUIButton>
             </Link>
             {filteredProjects?.length > 0 && (
                 <Table

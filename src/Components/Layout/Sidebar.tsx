@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../Reducers/AuthSlice'
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 240;
 
@@ -16,6 +17,7 @@ interface SidebarProps {
 const Sidebar = ({ children }: SidebarProps) => {
     const navigate = useNavigate();  // React Router navigation
     const dispatch = useDispatch()
+    const { t } = useTranslation()
 
     const handleLogout = () => {
         dispatch(logout())
@@ -24,9 +26,9 @@ const Sidebar = ({ children }: SidebarProps) => {
 
     // Navigation menu items
     const menuItems = [
-        { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-        { text: 'Projects', icon: <FolderIcon />, path: '/projects' },
-        { text: 'Estimations', icon: <DescriptionIcon />, path: '/estimations' },
+        { text: t('dashboard'), icon: <DashboardIcon />, path: '/dashboard' },
+        { text: t('projects'), icon: <FolderIcon />, path: '/projects' },
+        { text: t('estimations'), icon: <DescriptionIcon />, path: '/estimations' },
     ];
 
     return (
@@ -65,7 +67,7 @@ const Sidebar = ({ children }: SidebarProps) => {
                         <ListItemIcon>
                             <ExitToAppIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Logout" />
+                        <ListItemText primary={t("logout")} />
                     </ListItem>
                 </List>
             </Drawer>
