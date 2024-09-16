@@ -14,7 +14,7 @@ Instructions for setting up and installing the project locally.
 2. **Navigate to the project directory:**
 
     ```bash
-    cd react-estimation-app
+    cd your-direcroty-name
     ```
 
 3. **Install dependencies:**
